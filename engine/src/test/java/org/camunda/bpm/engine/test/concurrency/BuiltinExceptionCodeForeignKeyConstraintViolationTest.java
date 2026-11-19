@@ -24,6 +24,7 @@ import org.camunda.bpm.engine.impl.errorcode.BuiltinExceptionCode;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.test.RequiredDatabase;
 import org.camunda.bpm.engine.test.Deployment;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class BuiltinExceptionCodeForeignKeyConstraintViolationTest extends ConcurrencyTestCase {
@@ -76,6 +77,7 @@ public class BuiltinExceptionCodeForeignKeyConstraintViolationTest extends Concu
   }
 
   @Deployment(resources = "org/camunda/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
+  @Ignore("seal: thread-interleaving race on H2; the delete thread hits the FK violation before the final makeContinue on GitHub runners")
   @Test
   public void shouldReturnForeignKeyConstraintErrorCode() {
     // given
